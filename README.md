@@ -1,2 +1,367 @@
-# Auditores-Globales-S.A.S.
-Auditores Globales S.A.S.
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { 
+  Calculator, FileSpreadsheet, Scale, ReceiptText, Users2, Building2, 
+  ChevronRight, CheckCircle2, Phone, Mail, MapPin, Clock
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+// ---------- Utilidades ----------
+const container = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+};
+const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
+
+const services = [
+  {
+    icon: <Calculator className="h-6 w-6" />,
+    title: "Contabilidad Integral",
+    desc: "Registro, conciliaciones, estados financieros y reportes gerenciales bajo NIIF.",
+  },
+  {
+    icon: <ReceiptText className="h-6 w-6" />,
+    title: "Impuestos & Tributación",
+    desc: "Planeación, preparación y presentación de obligaciones fiscales. DIAN/UGPP.",
+  },
+  {
+    icon: <FileSpreadsheet className="h-6 w-6" />,
+    title: "Nómina & Seguridad Social",
+    desc: "Liquidación de nómina, prestaciones, PILA, contratos y cumplimiento laboral.",
+  },
+  {
+    icon: <Scale className="h-6 w-6" />,
+    title: "Auditoría & Control Interno",
+    desc: "Revisión de procesos, riesgos y aseguramiento de la información financiera.",
+  },
+  {
+    icon: <Building2 className="h-6 w-6" />,
+    title: "Constitución de Empresas",
+    desc: "Acompañamiento en registro mercantil, RUT, RIT y estructuración contable.",
+  },
+  {
+    icon: <Users2 className="h-6 w-6" />,
+    title: "Asesoría Empresarial",
+    desc: "Costos, precios, flujo de caja, indicadores y apoyo a la dirección.",
+  },
+];
+
+export default function ContabilidadYGestionSite() {
+  const [sent, setSent] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Aquí podrías integrar un servicio real (Email/API). Por ahora, simulamos envío.
+    setSent(true);
+    setTimeout(() => setSent(false), 5000);
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800">
+      {/* Navbar */}
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/60 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-16 flex items-center justify-between">
+            <a href="#inicio" className="flex items-center gap-2">
+              <div className="h-9 w-9 rounded-2xl bg-slate-900 text-white grid place-items-center font-bold">CG</div>
+              <div className="leading-tight">
+                <div className="font-bold tracking-tight">Contabilidad & Gestión</div>
+                <div className="text-xs text-slate-500">Firma Contable</div>
+              </div>
+            </a>
+            <nav className="hidden md:flex items-center gap-6 text-sm">
+              <a href="#servicios" className="hover:text-slate-900 text-slate-600">Servicios</a>
+              <a href="#nosotros" className="hover:text-slate-900 text-slate-600">Nosotros</a>
+              <a href="#proceso" className="hover:text-slate-900 text-slate-600">Proceso</a>
+              <a href="#testimonios" className="hover:text-slate-900 text-slate-600">Testimonios</a>
+              <a href="#contacto" className="hover:text-slate-900 text-slate-600">Contacto</a>
+            </nav>
+            <div className="flex items-center gap-2">
+              <a href="#contacto">
+                <Button className="rounded-2xl">Solicitar asesoría</Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section id="inicio" className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]">
+          <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-slate-200 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-slate-300 blur-3xl" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.6}} className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+                Tu firma contable aliada para crecer con confianza
+              </h1>
+              <p className="mt-4 text-slate-600 text-base sm:text-lg">
+                Asesoría contable, tributaria y financiera para pymes y emprendedores. 
+                Cumple sin estrés, toma decisiones informadas y enfócate en tu negocio.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a href="#contacto"><Button size="lg" className="rounded-2xl">Agenda una consulta</Button></a>
+                <a href="#servicios" className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-slate-300 hover:bg-white">
+                  Ver servicios <ChevronRight className="h-4 w-4" />
+                </a>
+              </div>
+              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-slate-600">
+                {["NIIF", "DIAN", "UGPP", "PILA"].map((badge) => (
+                  <div key={badge} className="rounded-xl bg-white/70 border border-slate-200 px-3 py-2 text-center">
+                    {badge}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Card className="rounded-2xl shadow-xl">
+              <CardHeader>
+                <CardTitle>Diagnóstico express gratuito</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-sm text-slate-600">
+                  {["Revisión de obligaciones vigentes", "Riesgos fiscales y laborales", "Oportunidades de mejora contable", "Plan de acción en 48h"].map((t) => (
+                    <li key={t} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5" /> {t}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contacto"><Button className="mt-6 w-full rounded-2xl">Solicitar ahora</Button></a>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Servicios */}
+      <section id="servicios" className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Servicios</h2>
+              <p className="mt-2 text-slate-600">Soluciones a la medida para cada etapa de tu empresa.</p>
+            </div>
+            <a href="#contacto" className="hidden sm:inline-flex"><Button variant="outline" className="rounded-2xl">Cotizar</Button></a>
+          </div>
+          <motion.div 
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {services.map((s, i) => (
+              <motion.div variants={item} key={i}>
+                <Card className="h-full rounded-2xl hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="h-10 w-10 rounded-xl bg-slate-900 text-white grid place-items-center">
+                      {s.icon}
+                    </div>
+                    <CardTitle className="mt-3 text-xl">{s.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-slate-600 text-sm">{s.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Nosotros */}
+      <section id="nosotros" className="py-16 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Nosotros</h2>
+              <p className="mt-4 text-slate-600">
+                Somos un equipo de contadores públicos y auditores con más de 10 años
+                de experiencia en pymes, startups y comercio. Trabajamos con estándares
+                NIIF y enfoque en la toma de decisiones.
+              </p>
+              <div className="mt-6 grid sm:grid-cols-3 gap-4">
+                {[{k:"Clientes", v:"120+"},{k:"Sectores", v:"15"},{k:"Años", v:"10+"}].map((m) => (
+                  <Card key={m.k} className="rounded-2xl">
+                    <CardContent className="p-4">
+                      <div className="text-2xl font-bold">{m.v}</div>
+                      <div className="text-sm text-slate-600">{m.k}</div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            <Card className="rounded-2xl shadow-xl">
+              <CardHeader>
+                <CardTitle>Valores que nos guían</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-sm text-slate-600">
+                  {[
+                    "Transparencia y confidencialidad",
+                    "Cumplimiento normativo y calidad técnica",
+                    "Orientación a resultados medibles",
+                    "Acompañamiento cercano y oportuno",
+                  ].map((t) => (
+                    <li key={t} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5" /> {t}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Proceso */}
+      <section id="proceso" className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">¿Cómo trabajamos?</h2>
+          <div className="mt-10 grid lg:grid-cols-4 sm:grid-cols-2 gap-6">
+            {["Diagnóstico", "Plan de trabajo", "Ejecución", "Medición"].map((step, i) => (
+              <Card key={step} className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">{i+1}. {step}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-slate-600">
+                    {i===0 && "Revisamos obligaciones, riesgos y estado contable."}
+                    {i===1 && "Definimos actividades, responsables y cronograma."}
+                    {i===2 && "Implementamos procesos y llevamos tu contabilidad al día."}
+                    {i===3 && "Reportamos indicadores y oportunidades de mejora."}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonios */}
+      <section id="testimonios" className="py-16 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Lo que dicen nuestros clientes</h2>
+          <div className="mt-10 grid lg:grid-cols-3 gap-6">
+            {[
+              {q:"Nos ayudaron a ordenar la casa y optimizar impuestos.", a:"Alejandra R.", b:"Comercio"},
+              {q:"Pasamos a NIIF sin traumas y con indicadores claros.", a:"Julián M.", b:"Servicios"},
+              {q:"Tener nómina y seguridad social al día nos quitó dolores.", a:"Camilo G.", b:"Manufactura"},
+            ].map((t, i) => (
+              <Card key={i} className="rounded-2xl">
+                <CardContent className="p-6">
+                  <p className="italic">“{t.q}”</p>
+                  <div className="mt-4 text-sm text-slate-600">{t.a} · {t.b}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA franja */}
+      <section className="py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Card className="rounded-2xl bg-slate-900 text-white">
+            <CardContent className="p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div>
+                <h3 className="text-2xl font-bold">¿Listo para simplificar tu contabilidad?</h3>
+                <p className="mt-2 text-slate-300">Agendemos una llamada y armemos tu plan en minutos.</p>
+              </div>
+              <a href="#contacto"><Button variant="secondary" className="rounded-2xl">Hablar con un asesor</Button></a>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Contacto */}
+      <section id="contacto" className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Contacto</h2>
+              <p className="mt-2 text-slate-600">Cuéntanos sobre tu empresa y te contactamos el mismo día hábil.</p>
+
+              <div className="mt-6 space-y-3 text-slate-700">
+                <div className="flex items-center gap-3"><Phone className="h-5 w-5"/> +57 300 000 0000</div>
+                <div className="flex items-center gap-3"><Mail className="h-5 w-5"/> contacto@contaygestion.co</div>
+                <div className="flex items-center gap-3"><MapPin className="h-5 w-5"/> Bogotá, Colombia</div>
+                <div className="flex items-center gap-3"><Clock className="h-5 w-5"/> Lun–Vie 8:00–18:00</div>
+              </div>
+            </div>
+
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle>Agenda una consulta</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {sent ? (
+                  <div className="rounded-xl bg-green-50 text-green-700 p-4 text-sm">
+                    ¡Gracias! Hemos recibido tu mensaje. Te contactaremos pronto.
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm">Nombre</label>
+                        <Input name="nombre" placeholder="Tu nombre" required className="mt-1"/>
+                      </div>
+                      <div>
+                        <label className="text-sm">Empresa (opcional)</label>
+                        <Input name="empresa" placeholder="Tu empresa" className="mt-1"/>
+                      </div>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm">Correo</label>
+                        <Input type="email" name="correo" placeholder="tu@correo.com" required className="mt-1"/>
+                      </div>
+                      <div>
+                        <label className="text-sm">Teléfono</label>
+                        <Input name="telefono" placeholder="300 000 0000" required className="mt-1"/>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm">Servicio de interés</label>
+                      <select name="servicio" className="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-300" required>
+                        <option value="">Selecciona...</option>
+                        {services.map((s) => (
+                          <option key={s.title} value={s.title}>{s.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-sm">Mensaje</label>
+                      <Textarea name="mensaje" placeholder="Cuéntanos brevemente tu necesidad" required className="mt-1" rows={4}/>
+                    </div>
+                    <Button type="submit" className="rounded-2xl w-full">Enviar</Button>
+                  </form>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-10 border-t border-slate-200 bg-white/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6 items-center">
+            <div className="flex items-center gap-2">
+              <div className="h-9 w-9 rounded-2xl bg-slate-900 text-white grid place-items-center font-bold">CG</div>
+              <div className="text-sm text-slate-600">© {new Date().getFullYear()} Contabilidad & Gestión. Todos los derechos reservados.</div>
+            </div>
+            <div className="text-sm text-slate-600">RNT: 000000 – NIT 900.000.000-0</div>
+            <div className="justify-self-end">
+              <a href="#contacto"><Button variant="outline" className="rounded-2xl">Solicitar propuesta</Button></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
